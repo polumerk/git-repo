@@ -1,0 +1,64 @@
+# Hello World Project v6.0 - AI Edition
+Flask==2.3.3
+requests==2.31.0
+urllib3==2.0.7
+Pillow==10.0.0
+
+# Database
+# sqlite3 - встроен в Python
+
+# Audio processing
+soundfile==0.12.1
+librosa==0.10.1
+
+# AI и NLP
+openai==0.28.1
+transformers==4.35.0
+torch==2.1.0
+
+# WebSocket
+websockets==11.0.3
+socketio==5.9.0
+flask-socketio==5.3.6
+
+# OAuth и аутентификация
+PyJWT==2.8.0
+oauthlib==3.2.2
+requests-oauthlib==1.3.1
+
+# GraphQL
+graphene==3.3.0
+graphene-flask==2.0.0
+graphql-core==3.2.3
+
+# API и веб
+flask-cors==4.0.0
+flask-restful==0.3.10
+marshmallow==3.20.1
+
+# Мониторинг и логи
+prometheus-client==0.17.1
+structlog==23.2.0
+
+# Переводы
+googletrans==4.0.0
+deep-translator==1.11.4
+
+# Утилиты
+python-dotenv==1.0.0
+schedule==1.2.0
+redis==5.0.1
+
+# Testing
+pytest==7.4.2
+pytest-asyncio==0.21.1
+pytest-mock==3.12.0
+
+# Production
+gunicorn==21.2.0
+uwsgi==2.0.22
+
+# Development
+black==23.9.1
+flake8==6.1.0
+mypy==1.6.1
