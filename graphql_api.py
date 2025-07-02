@@ -66,15 +66,28 @@ except ImportError:
 if not GRAPHENE_AVAILABLE:
     logger.error("GraphQL API недоступен без библиотеки graphene")
     # Создаем заглушки
-    class ObjectType: pass
-    class String: pass
-    class Int: pass
-    class Float: pass
-    class Boolean: pass
-    class GrapheneList: pass
-    class Field: pass
-    class Mutation: pass
-    class Schema: pass
+    class ObjectType: 
+        def __init__(self, **kwargs): pass
+    class String: 
+        def __init__(self, **kwargs): pass
+    class Int: 
+        def __init__(self, **kwargs): pass
+    class Float: 
+        def __init__(self, **kwargs): pass
+    class Boolean: 
+        def __init__(self, **kwargs): pass
+    class GrapheneList: 
+        def __init__(self, *args, **kwargs): pass
+    class Field: 
+        def __init__(self, *args, **kwargs): pass
+    class Mutation: 
+        def __init__(self, **kwargs): pass
+        @classmethod
+        def Field(cls): return None
+    class Schema: 
+        def __init__(self, **kwargs): pass
+        def execute(self, *args, **kwargs): 
+            return type('Result', (), {'data': None, 'errors': [{'message': 'GraphQL not available'}]})()
     def resolve_placeholder(*args, **kwargs):
         return {"error": "GraphQL not available"}
 
