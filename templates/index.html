@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌍 Hello World - Приветствие мира</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .card h2 {
+            margin-bottom: 20px;
+            color: #5a67d8;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-container {
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #5a67d8;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #5a67d8 0%, #667eea 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 5px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(90,103,216,0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #ed8936 0%, #f6ad55 100%);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #38a169 0%, #48bb78 100%);
+        }
+
+        .greeting-display {
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            border-left: 4px solid #5a67d8;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .greeting-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2d3748;
+        }
+
+        .language-info {
+            font-size: 1rem;
+            color: #718096;
+            margin-top: 10px;
+        }
+
+        .languages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .language-btn {
+            padding: 8px 12px;
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .language-btn:hover {
+            background: #5a67d8;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+            background: #f7fafc;
+            border-radius: 10px;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #5a67d8;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #718096;
+            margin-top: 5px;
+        }
+
+        .search-results {
+            margin-top: 20px;
+        }
+
+        .result-item {
+            background: #f7fafc;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 3px solid #5a67d8;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .result-item:hover {
+            background: #edf2f7;
+            transform: translateX(5px);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #718096;
+        }
+
+        .error {
+            background: #fed7d7;
+            color: #c53030;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .languages-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1><i class="fas fa-globe"></i> Hello World</h1>
+            <p>Приветствие мира на 30 языках</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Быстрые действия -->
+            <div class="card">
+                <h2><i class="fas fa-rocket"></i> Быстрые действия</h2>
+                <button class="btn" onclick="randomGreeting()">
+                    <i class="fas fa-dice"></i> Случайное приветствие
+                </button>
+                <button class="btn btn-secondary" onclick="showAllLanguages()">
+                    <i class="fas fa-list"></i> Все языки
+                </button>
+                <button class="btn btn-success" onclick="showStatistics()">
+                    <i class="fas fa-chart-bar"></i> Статистика
+                </button>
+            </div>
+
+            <!-- Поиск -->
+            <div class="card">
+                <h2><i class="fas fa-search"></i> Поиск языков</h2>
+                <div class="search-container">
+                    <input type="text" class="search-input" id="searchInput" 
+                           placeholder="Введите название языка или приветствие..." 
+                           onkeyup="handleSearch(event)">
+                </div>
+                <div id="searchResults" class="search-results"></div>
+            </div>
+
+            <!-- Приветствие -->
+            <div class="card">
+                <h2><i class="fas fa-comments"></i> Приветствие</h2>
+                <div class="greeting-display" id="greetingDisplay">
+                    <div>
+                        <div class="greeting-text">Добро пожаловать!</div>
+                        <div class="language-info">Выберите язык для приветствия</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Списки языков и статистика -->
+        <div class="main-content">
+            <div class="card" id="languagesCard" style="display: none;">
+                <h2><i class="fas fa-flag"></i> Все языки</h2>
+                <div class="languages-grid" id="languagesGrid"></div>
+            </div>
+
+            <div class="card" id="statisticsCard" style="display: none;">
+                <h2><i class="fas fa-chart-pie"></i> Статистика</h2>
+                <div class="stats-grid" id="statsGrid"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // API функции
+        async function fetchAPI(endpoint) {
+            try {
+                const response = await fetch(`/api${endpoint}`);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                return await response.json();
+            } catch (error) {
+                console.error('API Error:', error);
+                throw error;
+            }
+        }
+
+        // Случайное приветствие
+        async function randomGreeting() {
+            try {
+                const data = await fetchAPI('/random');
+                displayGreeting(data);
+            } catch (error) {
+                showError('Ошибка при получении случайного приветствия');
+            }
+        }
+
+        // Показать все языки
+        async function showAllLanguages() {
+            const card = document.getElementById('languagesCard');
+            const grid = document.getElementById('languagesGrid');
+            
+            if (card.style.display === 'none') {
+                try {
+                    grid.innerHTML = '<div class="loading">Загрузка...</div>';
+                    card.style.display = 'block';
+                    
+                    const data = await fetchAPI('/languages');
+                    grid.innerHTML = '';
+                    
+                    data.languages.forEach(lang => {
+                        const btn = document.createElement('div');
+                        btn.className = 'language-btn';
+                        btn.innerHTML = `<strong>${lang.code.toUpperCase()}</strong><br>${lang.name}`;
+                        btn.onclick = () => displayGreeting(lang);
+                        grid.appendChild(btn);
+                    });
+                } catch (error) {
+                    grid.innerHTML = '<div class="error">Ошибка загрузки языков</div>';
+                }
+            } else {
+                card.style.display = 'none';
+            }
+        }
+
+        // Показать статистику
+        async function showStatistics() {
+            const card = document.getElementById('statisticsCard');
+            const statsGrid = document.getElementById('statsGrid');
+            
+            if (card.style.display === 'none') {
+                try {
+                    statsGrid.innerHTML = '<div class="loading">Загрузка...</div>';
+                    card.style.display = 'block';
+                    
+                    const data = await fetchAPI('/statistics');
+                    statsGrid.innerHTML = '';
+                    
+                    const stats = [
+                        { label: 'Всего языков', value: data.total_languages },
+                        { label: 'Самый длинный код', value: data.longest_code.toUpperCase() },
+                        { label: 'Самый короткий код', value: data.shortest_code.toUpperCase() },
+                        { label: 'Средняя длина', value: Math.round(data.average_greeting_length) }
+                    ];
+                    
+                    stats.forEach(stat => {
+                        const item = document.createElement('div');
+                        item.className = 'stat-item';
+                        item.innerHTML = `
+                            <div class="stat-number">${stat.value}</div>
+                            <div class="stat-label">${stat.label}</div>
+                        `;
+                        statsGrid.appendChild(item);
+                    });
+                } catch (error) {
+                    statsGrid.innerHTML = '<div class="error">Ошибка загрузки статистики</div>';
+                }
+            } else {
+                card.style.display = 'none';
+            }
+        }
+
+        // Поиск
+        let searchTimeout;
+        function handleSearch(event) {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                const query = event.target.value.trim();
+                if (query.length < 2) {
+                    document.getElementById('searchResults').innerHTML = '';
+                    return;
+                }
+                searchLanguages(query);
+            }, 500);
+        }
+
+        async function searchLanguages(query) {
+            const resultsDiv = document.getElementById('searchResults');
+            
+            try {
+                resultsDiv.innerHTML = '<div class="loading">Поиск...</div>';
+                const data = await fetchAPI(`/search?q=${encodeURIComponent(query)}`);
+                
+                resultsDiv.innerHTML = '';
+                
+                if (data.results.length === 0) {
+                    resultsDiv.innerHTML = '<div class="error">Ничего не найдено</div>';
+                    return;
+                }
+                
+                data.results.forEach(result => {
+                    const item = document.createElement('div');
+                    item.className = 'result-item';
+                    item.innerHTML = `
+                        <strong>${result.code.toUpperCase()}</strong> - ${result.name}<br>
+                        <em>${result.greeting}</em>
+                    `;
+                    item.onclick = () => displayGreeting(result);
+                    resultsDiv.appendChild(item);
+                });
+            } catch (error) {
+                resultsDiv.innerHTML = '<div class="error">Ошибка поиска</div>';
+            }
+        }
+
+        // Отображение приветствия
+        function displayGreeting(languageData) {
+            const display = document.getElementById('greetingDisplay');
+            display.innerHTML = `
+                <div>
+                    <div class="greeting-text">${languageData.greeting}</div>
+                    <div class="language-info">${languageData.name} (${languageData.code.toUpperCase()})</div>
+                </div>
+            `;
+        }
+
+        // Показать ошибку
+        function showError(message) {
+            const display = document.getElementById('greetingDisplay');
+            display.innerHTML = `<div class="error">${message}</div>`;
+        }
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', () => {
+            // Показать случайное приветствие при загрузке
+            randomGreeting();
+        });
+    </script>
+</body>
+</html>
